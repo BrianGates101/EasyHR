@@ -1,18 +1,38 @@
+require("dotenv").config();
 const express = require('express');
 const cors = require('cors');
 const { Sequelize, DataTypes } = require('sequelize');
-
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Connect to the PostgreSQL database
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-    host: process.env.DB_HOST,
-    dialect: 'postgres',
-});
+const sequelize = new Sequelize(
+    process.env.DB_URL, { 
+        dialect: 'postgres', 
+        dialectOptions: { 
+            ssl: { 
+                require: true, // This will force SSL 
+                rejectUnauthorized: false // This can be set to true if you have a valid SSL certificate 
+            } 
+        },
+        pool: { 
+            max: 10, // maximum number of connection in pool 
+            min: 0, // minimum number of connection in pool 
+            acquire: 30000, // maximum time (ms) that a connection can be idle before being released 
+            idle: 10000 // maximum time (ms) that pool will try to get connection before throwing error 
+        } 
+    });
+
+sequelize
+    .sync()
+    .then(() => {
+        console.log("Database Connected Successfully")
+    })
+    .catch((err) => {
+        console.log(`Database Connection Error: ${err}`)
+    });
 
 // Define the Employee Model
 const Employee = sequelize.define('Employee', {
@@ -49,12 +69,17 @@ const Employee = sequelize.define('Employee', {
 
 // CRUD Endpoints
 // Get all employees
+app.get('/', async (req, res) => {
+    res.send("Error 404 : Looking for another page?")
+});
+
 app.get('/employees', async (req, res) => {
     try {
         const employees = await Employee.findAll();
         res.json(employees);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.log(`Internal server error: ${error.message}`)
+        res.status(500).json({ message: "Internal Server Error" });
     }
 });
 
@@ -65,31 +90,48 @@ app.post('/employees', async (req, res) => {
         const employee = await Employee.create({ name, surname, birthdate, employeeNumber, salary, position, managerId });
         res.status(201).json(employee);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.log(`Internal server error: ${error.message}`)
+        res.status(500).json({ message: "Internal Server Error" });
     }
 });
 
 // Update an employee
 app.put('/employees/:id', async (req, res) => {
     try {
-        const employee = await Employee.findByPk(req.params.id);
+        const employee = await Employee.findOne({where: {employeeNumber: req.params.id}});
+        // const employee = await Employee.findByPk(req.params.id);
         if (!employee) {
             return res.status(404).json({ message: "Employee not found" });
         }
 
         const { name, surname, birthdate, employeeNumber, salary, position, managerId } = req.body;
-        employee.name = name;
-        employee.surname = surname;
-        employee.birthdate = birthdate;
-        employee.employeeNumber = employeeNumber;
-        employee.salary = salary;
-        employee.position = position;
-        employee.managerId = managerId;
 
-        await employee.save();
+        // Update employee attributes 
+        await employee.update({ 
+            name, 
+            surname, 
+            birthdate, 
+            employeeNumber, 
+            salary, 
+            position, 
+            managerId 
+        }); 
+
         res.json(employee);
+
+        // employee.name = name;
+        // employee.surname = surname;
+        // employee.birthdate = birthdate;
+        // employee.employeeNumber = employeeNumber;
+        // employee.salary = salary;
+        // employee.position = position;
+        // employee.managerId = managerId;
+
+        // await employee.save();
+        // res.json(employee);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.log(`Internal server error: ${error.message}`)
+        res.status(500).json({ message: "Internal Server Error" });
     }
 });
 
@@ -104,10 +146,11 @@ app.delete('/employees/:id', async (req, res) => {
         await employee.destroy();
         res.status(204).send();
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.log(`Internal server error: ${error.message}`)
+        res.status(500).json({ message: "Internal Server Error" });
     }
 });
 
 // Start the server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server running on port ${port}`));
