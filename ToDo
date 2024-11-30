@@ -1,9 +1,9 @@
     // CRUD API
-// TODO: Create
-// TODO: Delete
-// TODO: Update
-// TODO: Find by term
-// TODO: Find All
+// DONE: Create
+// DONE: Delete
+// DONE: Update
+// DONE: Find by term
+// DONE: Find All
 
     // Forms
 // TODO: Add + Date/Number Select + Drop down for Manager + Number selector for salary

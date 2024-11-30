@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require('express');
 const cors = require('cors');
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes, Op } = require('sequelize');
 const app = express();
 
 // Middleware
@@ -52,6 +52,7 @@ const Employee = sequelize.define('Employee', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        primaryKey: true,
     },
     salary: {
         type: DataTypes.FLOAT,
@@ -62,7 +63,7 @@ const Employee = sequelize.define('Employee', {
         allowNull: false,
     },
     managerId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true,  // This is optional since not all employees have a manager
     },
 });
@@ -71,6 +72,31 @@ const Employee = sequelize.define('Employee', {
 // Get all employees
 app.get('/', async (req, res) => {
     res.send("Error 404 : Looking for another page?")
+});
+
+// Fuzzy search for employees 
+app.get('/employees/search/:term', async (req, res) => {
+    const searchTerm = `%${req.params.term}%`; // Prepare the search term for LIKE query
+    // const searchTerm = req.params.term; // Prepare the search term for LIKE query
+    try {
+        const employees = await Employee.findAll({
+            where: {
+                [Op.or]: [
+                    sequelize.where(sequelize.cast(sequelize.col('name'), 'text'), { [Op.like]: searchTerm }),
+                    sequelize.where(sequelize.cast(sequelize.col('surname'), 'text'), { [Op.like]: searchTerm }),
+                    sequelize.where(sequelize.cast(sequelize.col('birthdate'), 'text'), { [Op.like]: searchTerm }),
+                    sequelize.where(sequelize.cast(sequelize.col('employeeNumber'), 'text'), { [Op.like]: searchTerm }),
+                    sequelize.where(sequelize.cast(sequelize.col('salary'), 'text'), { [Op.like]: searchTerm }),
+                    sequelize.where(sequelize.cast(sequelize.col('position'), 'text'), { [Op.like]: searchTerm }),
+                    sequelize.where(sequelize.cast(sequelize.col('managerId'), 'text'), { [Op.like]: searchTerm })
+                ]
+            }
+        });
+        res.json(employees);
+    } catch (error) {
+        console.log(`Internal server error: ${error.message}`);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
 });
 
 app.get('/employees', async (req, res) => {
@@ -99,7 +125,6 @@ app.post('/employees', async (req, res) => {
 app.put('/employees/:id', async (req, res) => {
     try {
         const employee = await Employee.findOne({where: {employeeNumber: req.params.id}});
-        // const employee = await Employee.findByPk(req.params.id);
         if (!employee) {
             return res.status(404).json({ message: "Employee not found" });
         }
@@ -118,17 +143,6 @@ app.put('/employees/:id', async (req, res) => {
         }); 
 
         res.json(employee);
-
-        // employee.name = name;
-        // employee.surname = surname;
-        // employee.birthdate = birthdate;
-        // employee.employeeNumber = employeeNumber;
-        // employee.salary = salary;
-        // employee.position = position;
-        // employee.managerId = managerId;
-
-        // await employee.save();
-        // res.json(employee);
     } catch (error) {
         console.log(`Internal server error: ${error.message}`)
         res.status(500).json({ message: "Internal Server Error" });
@@ -138,7 +152,7 @@ app.put('/employees/:id', async (req, res) => {
 // Delete an employee
 app.delete('/employees/:id', async (req, res) => {
     try {
-        const employee = await Employee.findByPk(req.params.id);
+        const employee = await Employee.findOne({where: {employeeNumber: req.params.id}});
         if (!employee) {
             return res.status(404).json({ message: "Employee not found" });
         }
