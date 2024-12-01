@@ -1,0 +1,1 @@
+import '../styling/EmployeeGraph.css';
