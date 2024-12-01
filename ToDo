@@ -17,7 +17,7 @@
     // List View
 // TODO: Sort by each field
 // TODO: Filter by each field
-// TODO: Search (fuzzy)
+// DONE: Search (fuzzy)
 
     // Tree View
 // TODO: Blur when hover (or blur outside of tree branches)

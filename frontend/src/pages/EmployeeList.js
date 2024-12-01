@@ -11,12 +11,19 @@ const EmployeeList = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [selectedEmployeeNumber, setSelectedEmployeeNumber] = useState(null); // State to hold the selected employee number
     const [openViewModal, setOpenViewModal] = useState(false); // State to control visibility of ViewEmployee modal
+    const [searchQuery, setSearchQuery] = useState(''); // State for search query
 
-    const fetchEmployees = async () => {
+    const fetchEmployees = async (query = '') => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/employees`);
-            setEmployees(response.data);
-            setLoading(false);
+            if (query == '') {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/employees`);
+                setEmployees(response.data);
+                setLoading(false);
+            } else {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/employees/search/${query}`);
+                setEmployees(response.data);
+                setLoading(false);
+            }
         } catch (error) {
             console.error("Error fetching employees:", error);
             setLoading(false);
@@ -42,6 +49,10 @@ const EmployeeList = () => {
         fetchEmployees();
     };
 
+    const handleSearch = () => {
+        fetchEmployees(searchQuery); // Perform the search with the entered query
+    };
+
     useEffect(() => {
         fetchEmployees();
     }, []);
@@ -53,7 +64,20 @@ const EmployeeList = () => {
     return (
         <div className="employee-list">
             <h1>Employee List</h1>
+
+            {/* Search Bar */}
+            <div className="search-container">
+                <input
+                    type="text"
+                    placeholder="Search for employees..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
+                />
+                <button onClick={handleSearch}>Search</button>
+            </div>
+
             <button onClick={handleAddEmployee}>Add New Employee</button>
+
             <table>
                 <thead>
                     <tr>
