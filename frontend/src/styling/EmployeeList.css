@@ -1,0 +1,16 @@
+.employee-list {
+    position: relative;
+}
+
+/* EmployeeList.css */
+table tr {
+    cursor: pointer; /* Indicates the rows are clickable */
+}
+
+table tr:hover {
+    background-color: #f0f0f0; /* Highlight the row on hover */
+}
+
+button {
+    margin-bottom: 20px;
+}
