@@ -6,20 +6,33 @@
 // DONE: Find All
 
     // Forms
-// TODO: Add + Date/Number Select + Drop down for Manager + Number selector for salary
-// TODO: View + Delete + Edit Button (Green + Red)
-// TODO: Edit + Confirm + Cancel Button (Green + Red)
+// DONE: Add
+// DONE: View
+        // Edit Button (Purple)
+        // Delete Button (Red)
+// DONE: Edit
+        // Confirm Button (Purple)
+        // Cancel Button (Red)
 
     // List View
 // TODO: Sort by each field
 // TODO: Filter by each field
-// TODO: Search (fuzzy)
-// TODO: List View
-// TODO: List View
-// TODO: List View
+// DONE: Search (fuzzy)
 
     // Tree View
 // TODO: Blur when hover (or blur outside of tree branches)
 
     // Make Pretty
 // TODO: Make Pretty
+// NotFound
+// EmployeeList
+// EmployeeGraph
+// Navbar
+// AddEmployee
+// ViewEmployee
+// EditEmployee
+
+
+
+// Add Loadings
+// Many comments
