@@ -17,11 +17,15 @@ const EmployeeList = () => {
         try {
             if (query == '') {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/employees`);
-                setEmployees(response.data);
+                const employeesData = Array.isArray(response.data) ? response.data : [];
+                console.log("API Response:", response.data); // Log the response data
+                setEmployees(employeesData);
                 setLoading(false);
             } else {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/employees/search/${query}`);
-                setEmployees(response.data);
+                const employeesData = Array.isArray(response.data) ? response.data : [];
+                console.log("API Response:", response.data); // Log the response data
+                setEmployees(employeesData);
                 setLoading(false);
             }
         } catch (error) {
@@ -91,7 +95,24 @@ const EmployeeList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {employees.map((employee) => (
+                    {Array.isArray(employees) ? (
+                        employees.map((employee) => (
+                            <tr key={employee.employeeNumber} onClick={() => handleViewEmployee(employee.employeeNumber)}>
+                                <td>{employee.name}</td>
+                                <td>{employee.surname}</td>
+                                <td>{new Date(employee.birthdate).toLocaleDateString()}</td>
+                                <td>{employee.employeeNumber}</td>
+                                <td>{employee.salary}</td>
+                                <td>{employee.position}</td>
+                                <td>{employee.managerId}</td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="7">No employees found</td>
+                        </tr>
+                    )}
+                    {/* {employees.map((employee) => (
                         <tr key={employee.employeeNumber} onClick={() => handleViewEmployee(employee.employeeNumber)}>
                             <td>{employee.name}</td>
                             <td>{employee.surname}</td>
@@ -101,7 +122,7 @@ const EmployeeList = () => {
                             <td>{employee.position}</td>
                             <td>{employee.managerId}</td>
                         </tr>
-                    ))}
+                    ))} */}
                 </tbody>
             </table>
             {showPopup && (
