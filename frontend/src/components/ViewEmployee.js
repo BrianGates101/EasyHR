@@ -1,25 +1,29 @@
 import '../styling/ViewEmployee.css';
-import DeleteConfirmation from './DeleteConfirmation';
+import EditEmployee from './EditEmployee'; // Import the EditEmployee modal
+import DeleteConfirmation from './DeleteConfirmation'; // Import the DeleteConfirmation modal
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const ViewEmployee = ({ employeeNumber, open, handleClose }) => {
+const ViewEmployee = ({ employeeNumber, open, handleClose, onEmployeeListUpdate }) => {
     const [employee, setEmployee] = useState(null);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false); // State for showing delete confirmation modal
+    const [showEditEmployee, setShowEditEmployee] = useState(false); // State for showing edit employee modal
 
     useEffect(() => {
-        if (employeeNumber && open) {
-            axios
-                .get(`${process.env.REACT_APP_API_URL}/employees/${employeeNumber}`)
-                .then((response) => {
+        if (open) {
+            // Fetch the employee details when the modal is open
+            const fetchEmployeeDetails = async () => {
+                try {
+                    const response = await axios.get(`${process.env.REACT_APP_API_URL}/employees/${employeeNumber}`);
                     setEmployee(response.data);
-                })
-                .catch((error) => {
+                } catch (error) {
                     console.error("Error fetching employee details:", error);
-                });
+                }
+            };
+            fetchEmployeeDetails();
         }
-    }, [employeeNumber]);
+    }, [open, employeeNumber]);
 
     const handleDeleteClick = () => {
         setShowDeleteConfirmation(true); // Show the delete confirmation modal
@@ -33,9 +37,32 @@ const ViewEmployee = ({ employeeNumber, open, handleClose }) => {
         try {
             await axios.delete(`${process.env.REACT_APP_API_URL}/employees/${employeeNumber}`); // DELETE request to API
             handleClose(); // Close the ViewEmployee modal
+            onEmployeeListUpdate(); // Refresh the employee list on the parent
         } catch (error) {
             console.error("Error deleting employee:", error);
         }
+    };
+
+    const handleEditClick = () => {
+        setShowEditEmployee(true); // Show the EditEmployee modal
+    };
+
+    const handleEditClose = () => {
+        setShowEditEmployee(false); // Close the EditEmployee modal
+    };
+
+    const handleEmployeeUpdated = () => {
+        // Refresh employee data after saving edit
+        const fetchEmployeeDetails = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/employees/${employeeNumber}`);
+                setEmployee(response.data);
+            } catch (error) {
+                console.error("Error fetching employee details:", error);
+            }
+        };
+        fetchEmployeeDetails();
+        handleEditClose(); // Close the EditEmployee modal
     };
 
     if (!open || !employee) {
@@ -61,10 +88,19 @@ const ViewEmployee = ({ employeeNumber, open, handleClose }) => {
 
                 {/* Buttons at the bottom-right */}
                 <div className="modal-buttons">
-                    <button className="edit-button">Edit</button>
+                <button className="edit-button" onClick={handleEditClick}>Edit</button>
                     <button className="delete-button" onClick={handleDeleteClick}>Delete</button>
                 </div>
             </div>
+
+            {/* EditEmployee Modal */}
+            {showEditEmployee && (
+                <EditEmployee
+                    employeeNumber={employeeNumber}
+                    onSave={handleEmployeeUpdated} // Close the modal and refresh the parent
+                    onCancel={handleEditClose} // Close the modal without changes
+                />
+            )}
 
             {/* Confirmation Modal */}
             {showDeleteConfirmation && (

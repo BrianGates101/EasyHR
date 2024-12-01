@@ -7,10 +7,10 @@
 
     // Forms
 // DONE: Add
-// TODO: View
+// DONE: View
         // Edit Button (Purple)
         // Delete Button (Red)
-// TODO: Edit
+// DONE: Edit
         // Confirm Button (Purple)
         // Cancel Button (Red)
 
@@ -18,9 +18,6 @@
 // TODO: Sort by each field
 // TODO: Filter by each field
 // TODO: Search (fuzzy)
-// TODO: List View
-// TODO: List View
-// TODO: List View
 
     // Tree View
 // TODO: Blur when hover (or blur outside of tree branches)

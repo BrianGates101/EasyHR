@@ -34,6 +34,12 @@ const EmployeeList = () => {
     const handleCloseViewModal = () => {
         setOpenViewModal(false); // Close the modal
         setSelectedEmployeeNumber(null); // Reset selected employee number
+        fetchEmployees();
+    };
+
+    const handleEmployeeListUpdate = () => {
+        // Fetch updated employee data after any change (edit or delete)
+        fetchEmployees();
     };
 
     useEffect(() => {
@@ -85,6 +91,7 @@ const EmployeeList = () => {
                     employeeNumber={selectedEmployeeNumber}
                     open={openViewModal}
                     handleClose={handleCloseViewModal}
+                    onEmployeeListUpdate={handleEmployeeListUpdate}
                 />
             )}
         </div>
