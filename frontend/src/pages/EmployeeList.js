@@ -1,4 +1,4 @@
-import '../styling/EmployeeList.css';
+import  '../styling/EmployeeList.css';
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
