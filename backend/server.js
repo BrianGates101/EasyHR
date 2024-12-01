@@ -114,13 +114,6 @@ app.get('/employees/:id', async (req, res) => {
     const searchTerm = req.params.term;
     try {
         const employees = await Employee.findOne({where: {employeeNumber: req.params.id}});
-        // const employees = await Employee.findOne({
-        //     where: {
-        //         [Op.or]: [
-        //             sequelize.where(sequelize.cast(sequelize.col('employeeNumber'), 'text'), { [Op.like]: searchTerm }),
-        //         ]
-        //     }
-        // });
         res.json(employees);
     } catch (error) {
         console.log(`Internal server error: ${error.message}`);
