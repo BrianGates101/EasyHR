@@ -6,9 +6,13 @@
 // DONE: Find All
 
     // Forms
-// TODO: Add + Date/Number Select + Drop down for Manager + Number selector for salary
-// TODO: View + Delete + Edit Button (Green + Red)
-// TODO: Edit + Confirm + Cancel Button (Green + Red)
+// DONE: Add
+// TODO: View
+        // Edit Button (Purple)
+        // Delete Button (Red)
+// TODO: Edit
+        // Confirm Button (Purple)
+        // Cancel Button (Red)
 
     // List View
 // TODO: Sort by each field

@@ -1,11 +1,13 @@
-import  '../styling/EmployeeList.css';
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+
+import  '../styling/EmployeeList.css';
+import AddEmployee from '../components/AddEmployee';
 
 const EmployeeList = () => {
     const [employees, setEmployees] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showPopup, setShowPopup] = useState(false);
 
     const fetchEmployees = async () => {
         try {
@@ -18,6 +20,9 @@ const EmployeeList = () => {
         }
     };
 
+    const handleAddEmployee = () => setShowPopup(true);
+    const handleClosePopup = () => setShowPopup(false);
+
     useEffect(() => {
         fetchEmployees();
     }, []);
@@ -27,8 +32,9 @@ const EmployeeList = () => {
     }
 
     return (
-        <div>
+        <div className="employee-list">
             <h1>Employee List</h1>
+            <button onClick={handleAddEmployee}>Add New Employee</button>
             <table>
                 <thead>
                     <tr>
@@ -43,7 +49,7 @@ const EmployeeList = () => {
                 </thead>
                 <tbody>
                     {employees.map((employee) => (
-                        <tr key={employee.id}>
+                        <tr key={employee.employeeNumber}>
                             <td>{employee.name}</td>
                             <td>{employee.surname}</td>
                             <td>{employee.birthdate}</td>
@@ -55,6 +61,12 @@ const EmployeeList = () => {
                     ))}
                 </tbody>
             </table>
+            {showPopup && (
+                <AddEmployee
+                    onClose={handleClosePopup}
+                    onEmployeeAdded={fetchEmployees}
+                />
+            )}
         </div>
     );
 };

@@ -111,15 +111,36 @@ app.get('/employees', async (req, res) => {
 
 // Create a new employee
 app.post('/employees', async (req, res) => {
+    const { name, surname, birthdate, salary, position, managerId } = req.body;
+
     try {
-        const { name, surname, birthdate, employeeNumber, salary, position, managerId } = req.body;
-        const employee = await Employee.create({ name, surname, birthdate, employeeNumber, salary, position, managerId });
-        res.status(201).json(employee);
+        const employeeNumber = await generateEmployeeNumber(); // Generate a unique employee number
+
+        const newEmployee = await Employee.create({
+            name,
+            surname,
+            birthdate,
+            salary,
+            position,
+            managerId: managerId || null,  // Handle optional managerId
+            employeeNumber,  // Automatically assigned employeeNumber
+        });
+
+        res.status(201).json(newEmployee);  // Respond with the newly created employee
     } catch (error) {
         console.log(`Internal server error: ${error.message}`)
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
+const generateEmployeeNumber = async () => {
+    let employeeNumber;
+    do {
+        // Generate a random 7-digit number as a string (pad with leading zeros if necessary)
+        employeeNumber = Math.floor(1000000 + Math.random() * 9000000).toString();
+    } while (await Employee.findOne({ where: { employeeNumber } }));  // Check if it already exists in DB
+    return employeeNumber;
+};
 
 // Update an employee
 app.put('/employees/:id', async (req, res) => {
