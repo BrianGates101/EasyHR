@@ -69,7 +69,6 @@ const Employee = sequelize.define('Employee', {
 });
 
 // CRUD Endpoints
-// Get all employees
 app.get('/', async (req, res) => {
     res.send("Error 404 : Looking for another page?")
 });
@@ -99,12 +98,32 @@ app.get('/employees/search/:term', async (req, res) => {
     }
 });
 
+// Get all employees
 app.get('/employees', async (req, res) => {
     try {
         const employees = await Employee.findAll();
         res.json(employees);
     } catch (error) {
         console.log(`Internal server error: ${error.message}`)
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+});
+
+// Search for employees based on EmployeeNumber
+app.get('/employees/:id', async (req, res) => {
+    const searchTerm = req.params.term;
+    try {
+        const employees = await Employee.findOne({where: {employeeNumber: req.params.id}});
+        // const employees = await Employee.findOne({
+        //     where: {
+        //         [Op.or]: [
+        //             sequelize.where(sequelize.cast(sequelize.col('employeeNumber'), 'text'), { [Op.like]: searchTerm }),
+        //         ]
+        //     }
+        // });
+        res.json(employees);
+    } catch (error) {
+        console.log(`Internal server error: ${error.message}`);
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
