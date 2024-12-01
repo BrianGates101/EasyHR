@@ -1,14 +1,15 @@
 import '../styling/ViewEmployee.css';
+import DeleteConfirmation from './DeleteConfirmation';
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Typography } from "@mui/material";
 
 const ViewEmployee = ({ employeeNumber, open, handleClose }) => {
     const [employee, setEmployee] = useState(null);
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false); // State for showing delete confirmation modal
 
     useEffect(() => {
-        if (employeeNumber) {
+        if (employeeNumber && open) {
             axios
                 .get(`${process.env.REACT_APP_API_URL}/employees/${employeeNumber}`)
                 .then((response) => {
@@ -20,24 +21,27 @@ const ViewEmployee = ({ employeeNumber, open, handleClose }) => {
         }
     }, [employeeNumber]);
 
-    if (!employee) return null;
+    const handleDeleteClick = () => {
+        setShowDeleteConfirmation(true); // Show the delete confirmation modal
+    };
 
-    // return (
-    //     <Dialog open={open} onClose={handleClose}>
-    //         <DialogTitle>Employee Details</DialogTitle>
-    //         <DialogContent>
-    //             <Typography variant="h6">{employee.name} {employee.surname}</Typography>
-    //             <Typography variant="body1">Employee Number: {employee.employeeNumber}</Typography>
-    //             <Typography variant="body1">Position: {employee.position}</Typography>
-    //             <Typography variant="body1">Salary: R {employee.salary}.00</Typography>
-    //             <Typography variant="body1">Birthdate: {new Date(employee.birthdate).toLocaleDateString()}</Typography>
-    //             <Typography variant="body1">Manager: {employee.managerId ? `Employee ${employee.managerId}` : "None"}</Typography>
-    //         </DialogContent>
-    //         <DialogActions>
-    //             <Button onClick={handleClose} color="primary">Close</Button>
-    //         </DialogActions>
-    //     </Dialog>
-    // );
+    const handleDeleteCancel = () => {
+        setShowDeleteConfirmation(false); // Close the delete confirmation modal
+    };
+
+    const handleDeleteConfirm = async () => {
+        try {
+            await axios.delete(`${process.env.REACT_APP_API_URL}/employees/${employeeNumber}`); // DELETE request to API
+            handleClose(); // Close the ViewEmployee modal
+        } catch (error) {
+            console.error("Error deleting employee:", error);
+        }
+    };
+
+    if (!open || !employee) {
+        return null;
+    }
+
     return (
         <div className="view-employee-modal">
             <div className="modal-content">
@@ -58,9 +62,18 @@ const ViewEmployee = ({ employeeNumber, open, handleClose }) => {
                 {/* Buttons at the bottom-right */}
                 <div className="modal-buttons">
                     <button className="edit-button">Edit</button>
-                    <button className="delete-button">Delete</button>
+                    <button className="delete-button" onClick={handleDeleteClick}>Delete</button>
                 </div>
             </div>
+
+            {/* Confirmation Modal */}
+            {showDeleteConfirmation && (
+                <DeleteConfirmation
+                    employeeName={`${employee.name} ${employee.surname}`}
+                    onDelete={handleDeleteConfirm}
+                    onCancel={handleDeleteCancel}
+                />
+            )}
         </div>
     );
 };
