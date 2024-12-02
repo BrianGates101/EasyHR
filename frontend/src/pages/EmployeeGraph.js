@@ -78,6 +78,7 @@ const EmployeeGraph = () => {
 
         const g = svg.append('g').attr('transform', 'translate(100, 50)');
 
+        // eslint-disable-next-line no-unused-vars
         const links = g.selectAll('.link')
             .data(treeData.links())
             .enter()
