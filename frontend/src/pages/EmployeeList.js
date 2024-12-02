@@ -34,7 +34,7 @@ const EmployeeList = () => {
     const fetchEmployees = async (query = '') => {
         try {
             let response;
-            if (query == '') {
+            if (query === '') {
                 response = await axios.get(`${process.env.REACT_APP_API_URL}/employees`);
             } else {
                 response = await axios.get(`${process.env.REACT_APP_API_URL}/employees/search/${query}`);
