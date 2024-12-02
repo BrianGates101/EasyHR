@@ -44,6 +44,7 @@ const EmployeeList = () => {
             setLoading(false);
         } catch (error) {
             console.error("Error fetching employees:", error);
+            alert("Failed to fetch employees. Please try again.");
             setLoading(false);
         }
     };
