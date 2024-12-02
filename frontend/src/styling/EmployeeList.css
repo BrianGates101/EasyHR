@@ -1,5 +1,51 @@
+.employee-list-container {
+    display: flex;
+    flex-direction: row;
+    gap: 30px; /* Increased gap for better separation */
+    padding: 20px; /* Added padding to the container for more space */
+}
+
+.filters-panel {
+    width: 25%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filters-panel h2 {
+    margin-bottom: 10px;
+}
+
+.filters-panel .filter-group {
+    margin-bottom: 20px;
+}
+
+.filters-panel label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.filters-panel input,
+.filters-panel select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.filters-panel input:focus,
+.filters-panel select:focus {
+    border-color: #4CAF50; /* Highlight active filter inputs with a green border */
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
 .employee-list {
-    position: relative;
+    flex-grow: 1;
+    /* position: relative; */
 }
 
 /* EmployeeList.css */
@@ -8,9 +54,39 @@ table tr {
 }
 
 table tr:hover {
-    background-color: #f0f0f0; /* Highlight the row on hover */
+    background-color: #e6f7ff; /* Lighter hover effect */
+    transition: background-color 0.3s ease-in-out; /* Smooth transition for hover */
 }
 
 button {
-    margin-bottom: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+th.active {
+    background-color: #e6f7ff; /* Lighter blue for active column */
+    font-weight: bold;
+    border-bottom: 2px solid #4CAF50; /* Green underline for active sorting */
+}
+
+table tbody tr td[colspan="7"] {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 20px;
+    background-color: #f9f9f9;
 }

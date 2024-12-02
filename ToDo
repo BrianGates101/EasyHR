@@ -15,8 +15,8 @@
         // Cancel Button (Red)
 
     // List View
-// TODO: Sort by each field
-// TODO: Filter by each field
+// DONE: Sort by each field
+// DONE: Filter by each field
 // DONE: Search (fuzzy)
 
     // Tree View
