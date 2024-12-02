@@ -12,22 +12,20 @@ const EmployeeList = () => {
     const [selectedEmployeeNumber, setSelectedEmployeeNumber] = useState(null); // State to hold the selected employee number
     const [openViewModal, setOpenViewModal] = useState(false); // State to control visibility of ViewEmployee modal
     const [searchQuery, setSearchQuery] = useState(''); // State for search query
+    const [sortField, setSortField] = useState(null);
+    const [sortOrder, setSortOrder] = useState('asc'); // 'asc' or 'desc'
 
     const fetchEmployees = async (query = '') => {
         try {
+            var response;
             if (query == '') {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/employees`);
-                const employeesData = Array.isArray(response.data) ? response.data : [];
-                console.log("API Response:", response.data); // Log the response data
-                setEmployees(employeesData);
-                setLoading(false);
+                response = await axios.get(`${process.env.REACT_APP_API_URL}/employees`);
             } else {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/employees/search/${query}`);
-                const employeesData = Array.isArray(response.data) ? response.data : [];
-                console.log("API Response:", response.data); // Log the response data
-                setEmployees(employeesData);
-                setLoading(false);
+                response = await axios.get(`${process.env.REACT_APP_API_URL}/employees/search/${query}`);
             }
+            const employeesData = Array.isArray(response.data) ? response.data : [];
+            setEmployees(employeesData);
+            setLoading(false);
         } catch (error) {
             console.error("Error fetching employees:", error);
             setLoading(false);
@@ -55,6 +53,38 @@ const EmployeeList = () => {
 
     const handleSearch = () => {
         fetchEmployees(searchQuery); // Perform the search with the entered query
+    };
+
+    const handleSort = (field) => {
+        if (sortField === field) {
+            // Toggle sort order if the same field is clicked
+            setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+        } else {
+            // Set new field and default to ascending
+            setSortField(field);
+            setSortOrder('asc');
+        }
+    };
+    
+    const getSortedEmployees = () => {
+        if (!sortField) return employees; // No sorting applied
+    
+        return [...employees].sort((a, b) => {
+            const valA = a[sortField] || '';
+            const valB = b[sortField] || '';
+    
+            if (typeof valA === 'string') {
+                return sortOrder === 'asc'
+                    ? valA.localeCompare(valB)
+                    : valB.localeCompare(valA);
+            }
+    
+            if (typeof valA === 'number' || valA instanceof Date) {
+                return sortOrder === 'asc' ? valA - valB : valB - valA;
+            }
+    
+            return 0;
+        });
     };
 
     useEffect(() => {
@@ -85,18 +115,53 @@ const EmployeeList = () => {
             <table>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Surname</th>
-                        <th>Birthdate</th>
-                        <th>Employee Number</th>
-                        <th>Salary</th>
-                        <th>Position</th>
-                        <th>Manager ID</th>
+                        <th
+                            onClick={() => handleSort('name')}
+                            className={sortField === 'name' ? 'active' : ''}
+                        >
+                            Name {sortField === 'name' && (sortOrder === 'asc' ? '▲' : '▼')}
+                        </th>
+                        <th
+                            onClick={() => handleSort('surname')}
+                            className={sortField === 'surname' ? 'active' : ''}
+                        >
+                            Surname {sortField === 'surname' && (sortOrder === 'asc' ? '▲' : '▼')}
+                        </th>
+                        <th
+                            onClick={() => handleSort('birthdate')}
+                            className={sortField === 'birthdate' ? 'active' : ''}
+                        >
+                            Birthdate {sortField === 'birthdate' && (sortOrder === 'asc' ? '▲' : '▼')}
+                        </th>
+                        <th
+                            onClick={() => handleSort('employeeNumber')}
+                            className={sortField === 'employeeNumber' ? 'active' : ''}
+                        >
+                            Employee Number {sortField === 'employeeNumber' && (sortOrder === 'asc' ? '▲' : '▼')}
+                        </th>
+                        <th
+                            onClick={() => handleSort('salary')}
+                            className={sortField === 'salary' ? 'active' : ''}
+                        >
+                            Salary {sortField === 'salary' && (sortOrder === 'asc' ? '▲' : '▼')}
+                        </th>
+                        <th
+                            onClick={() => handleSort('position')}
+                            className={sortField === 'position' ? 'active' : ''}
+                        >
+                            Position {sortField === 'position' && (sortOrder === 'asc' ? '▲' : '▼')}
+                        </th>
+                        <th
+                            onClick={() => handleSort('managerId')}
+                            className={sortField === 'managerId' ? 'active' : ''}
+                        >
+                            Manager ID {sortField === 'managerId' && (sortOrder === 'asc' ? '▲' : '▼')}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {Array.isArray(employees) ? (
-                        employees.map((employee) => (
+                    {Array.isArray(getSortedEmployees()) ? (
+                        getSortedEmployees().map((employee) => (
                             <tr key={employee.employeeNumber} onClick={() => handleViewEmployee(employee.employeeNumber)}>
                                 <td>{employee.name}</td>
                                 <td>{employee.surname}</td>
@@ -112,17 +177,6 @@ const EmployeeList = () => {
                             <td colSpan="7">No employees found</td>
                         </tr>
                     )}
-                    {/* {employees.map((employee) => (
-                        <tr key={employee.employeeNumber} onClick={() => handleViewEmployee(employee.employeeNumber)}>
-                            <td>{employee.name}</td>
-                            <td>{employee.surname}</td>
-                            <td>{new Date(employee.birthdate).toLocaleDateString()}</td>
-                            <td>{employee.employeeNumber}</td>
-                            <td>{employee.salary}</td>
-                            <td>{employee.position}</td>
-                            <td>{employee.managerId}</td>
-                        </tr>
-                    ))} */}
                 </tbody>
             </table>
             {showPopup && (

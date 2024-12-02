@@ -14,3 +14,8 @@ table tr:hover {
 button {
     margin-bottom: 20px;
 }
+
+th.active {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
