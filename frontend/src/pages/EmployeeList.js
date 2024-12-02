@@ -34,7 +34,7 @@ const EmployeeList = () => {
     const fetchEmployees = async (query = '') => {
         try {
             let response;
-            if (query == '') {
+            if (query === '') {
                 response = await axios.get(`${process.env.REACT_APP_API_URL}/employees`);
             } else {
                 response = await axios.get(`${process.env.REACT_APP_API_URL}/employees/search/${query}`);
@@ -44,6 +44,7 @@ const EmployeeList = () => {
             setLoading(false);
         } catch (error) {
             console.error("Error fetching employees:", error);
+            alert("Failed to fetch employees. Please try again.");
             setLoading(false);
         }
     };
