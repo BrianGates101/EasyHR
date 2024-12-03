@@ -1,5 +1,5 @@
 /* Loading Text */
-.loading-text{
+.list-loading-text{
     color: #FFF;
     font-size: 50px;
     font-weight: bold;
@@ -20,7 +20,7 @@
 }
 
 /* Filters Panel */
-.filters-panel {
+.list-filters-panel {
     width: 25%;
     background-color: #2e2e3e;
     padding: 20px;
@@ -28,18 +28,18 @@
     height: 370px;
 }
 
-.filters-panel h2 {
+.list-filters-panel h2 {
     margin-bottom: 10px;
     color: #7b1fa2;
 }
 
-.filters-panel .filter-group label {
+.list-filters-panel .list-filter-group label {
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-.filters-panel input {
-    width: 100%;
+.list-filter-group input {
+    width: 90%;
     padding: 8px;
     border: 1px solid #3c3c4c;
     border-radius: 4px;
@@ -47,13 +47,14 @@
     color: #e0e0e0;
 }
 
-.filters-panel input:focus {
+.list-filter-group input:focus {
     border-color: #8b78e6;
     box-shadow: 0 0 5px rgba(139, 120, 230, 0.5);
 }
 
 /* Reset Filters Button */
-.filters-panel button {
+.list-filters-panel-button {
+    margin: 10px 0;
     background-color: #6c5ce7;
     color: #FFF;
     padding: 10px 15px;
@@ -63,16 +64,16 @@
     transition: background-color 0.3s ease-in-out;
 }
 
-.filters-panel button:hover {
+.list-filters-panel-button:hover {
     background-color: #5a4bc8; /* Darker purple on hover */
 }
 
 /* Employee List */
-.employee-list {
+.list-employee-list {
     flex-grow: 1;
 }
 
-.employee-list h1 {
+.list-employee-list h1 {
     color: #7b1fa2;
     margin-bottom: 20px;
     text-align: center;
@@ -80,7 +81,8 @@
 }
 
 /* Reset Filters Button */
-.employee-list button {
+.list-employee-list-button {
+    margin: 10px 0;
     background-color: #6c5ce7;
     color: #FFF;
     padding: 10px 15px;
@@ -90,12 +92,12 @@
     transition: background-color 0.3s ease-in-out;
 }
 
-.employee-list button:hover {
+.list-employee-list-button:hover {
     background-color: #5a4bc8; /* Darker purple on hover */
 }
 
 /* Search Container */
-.search-container input {
+.list-search-container input {
     width: 70%;
     padding: 8px;
     border: 1px solid #3c3c4c;
@@ -104,7 +106,7 @@
     color: #e0e0e0;
 }
 
-.search-container button {
+.list-search-container-button {
     background-color: #6c5ce7;
     color: #FFF;
     padding: 10px 15px;
@@ -114,7 +116,7 @@
     transition: background-color 0.3s ease-in-out;
 }
 
-.search-container button:hover {
+.list-search-container-button:hover {
     background-color: #5a4bc8;
 }
 
@@ -167,7 +169,7 @@ table tbody tr td[colspan="7"] {
 }
 
 /* Buttons */
-button {
+/* .employee-list-container > button {
     background-color: #6c5ce7;
     color: white;
     padding: 10px 15px;
@@ -177,14 +179,14 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
+.employee-list-container > button:hover {
     background-color: #5a4bc8;
 }
 
-button:disabled {
+.employee-list-container > button:disabled {
     background-color: #3c3c4c;
     cursor: not-allowed;
-}
+} */
 
 /* Active Sorting */
 th.active {

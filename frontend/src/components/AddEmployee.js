@@ -48,8 +48,8 @@ const AddEmployee = ({ onClose, onEmployeeAdded }) => {
     };
 
     return (
-        <div className="popup">
-            <div className="popup-content">
+        <div className="add-popup">
+            <div className="add-popup-content">
                 <h2>Add New Employee</h2>
                 <form onSubmit={handleSubmit}>
                     <label>Name:</label>

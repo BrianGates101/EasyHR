@@ -121,14 +121,14 @@ const EmployeeList = () => {
     }, []);
 
     if (loading) {
-        return <div className="loading-text">Loading...</div>;
+        return <div className="list-loading-text">Loading...</div>;
     }
 
     return (
         <div className="employee-list-container">
-            <div className="filters-panel">
+            <div className="list-filters-panel">
                 <h2>Filters</h2>
-                <div className="filter-group">
+                <div className="list-filter-group">
                     <label>Position:</label>
                     <input
                         type="text"
@@ -137,7 +137,7 @@ const EmployeeList = () => {
                         placeholder="e.g., Developer"
                     />
                 </div>
-                <div className="filter-group">
+                <div className="list-filter-group">
                     <label>Min Salary:</label>
                     <input
                         type="number"
@@ -146,7 +146,7 @@ const EmployeeList = () => {
                         placeholder="e.g., 5000"
                     />
                 </div>
-                <div className="filter-group">
+                <div className="list-filter-group">
                     <label>Max Salary:</label>
                     <input
                         type="number"
@@ -155,7 +155,7 @@ const EmployeeList = () => {
                         placeholder="e.g., 10000"
                     />
                 </div>
-                <div className="filter-group">
+                <div className="list-filter-group">
                     <label>Manager ID:</label>
                     <input
                         type="text"
@@ -164,26 +164,26 @@ const EmployeeList = () => {
                         placeholder="e.g., 12345"
                     />
                 </div>
-                <button onClick={() => setFilters({ position: '', minSalary: '', maxSalary: '', managerId: '' })}>
+                <button className="list-filters-panel-button" onClick={() => setFilters({ position: '', minSalary: '', maxSalary: '', managerId: '' })}>
                     Reset Filters
                 </button>
             </div>
 
-            <div className="employee-list">
+            <div className="list-employee-list">
                 <h1>Employee List</h1>
 
                 {/* Search Bar */}
-                <div className="search-container">
+                <div className="list-search-container">
                     <input
                         type="text"
                         placeholder="Search for employees..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
                     />
-                    <button onClick={handleSearch}>Search</button>
+                    <button className="list-search-container-button" onClick={handleSearch}>Search</button>
                 </div>
 
-                <button onClick={handleAddEmployee}>Add New Employee</button>
+                <button className="list-employee-list-button" onClick={handleAddEmployee}>Add New Employee</button>
 
                 <table>
                     <thead>

@@ -1,59 +1,106 @@
-button {
-    margin: 10px 0;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-.popup {
+/* Popup Overlay */
+.add-popup {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(30, 30, 47, 0.8); /* Dark background with transparency */
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
 }
 
-.popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+/* Popup Content Box */
+.add-popup-content {
+    background-color: #2a2a3d; /* Slightly lighter dark */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
     width: 400px;
     max-width: 90%;
+    color: #e0e0e0; /* Light gray text */
 }
 
-form {
+/* Heading Style */
+.add-popup-content h2 {
+    margin-top: 0;
+    color: #7b1fa2;
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+.add-popup-content form {
     display: flex;
     flex-direction: column;
 }
 
-form label {
-    margin: 10px 0 5px;
+/* Label Styling */
+.add-popup-content form label {
+    margin: 5px 0 5px;
+    font-size: 1em;
+    color: #bdbdbd;
 }
 
-form input {
+/* Input Fields */
+.add-popup-content form input,
+.add-popup-content form select {
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #4a148c; /* Purple border */
     border-radius: 5px;
+    background-color: #1e1e2f; /* Darker input background */
+    color: #fff; /* White text */
+    font-size: 1em;
 }
 
-form button {
+.add-popup-content form input:focus,
+.add-popup-content form select:focus {
+    outline: none;
+    border-color: #6a1b9a; /* Lighter purple for focus */
+    box-shadow: 0 0 5px #6a1b9a;
+}
+
+/* Buttons */
+.add-popup-content form button {
     margin-top: 10px;
+    padding: 12px 20px;
+    background-color: #6c5ce7; /* Purple background */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-body.popup-active {
-    filter: blur(5px);
+.add-popup-content form button:hover {
+    transform: scale(1.05);
+}
+
+.add-popup-content form button[type="button"] {
+    background-color: #c01818; /* Gray for the cancel button */
+}
+
+.add-popup-content form button[type="button"]:hover {
+    background-color: #c01818;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    .add-popup-content {
+        width: 90%;
+    }
+
+    .add-popup-content form input,
+    .add-popup-content form select {
+        font-size: 0.9em;
+    }
+
+    .add-popup-content form button {
+        font-size: 1em;
+    }
 }

@@ -71,11 +71,11 @@ const ViewEmployee = ({ employeeNumber, open, handleClose, onEmployeeListUpdate 
 
     return (
         <div className="view-employee-modal">
-            <div className="modal-content">
+            <div className="view-modal-content">
                 {/* Close Button (Top-right "X") */}
-                <button className="close-button" onClick={handleClose}>X</button>
+                <button className="view-close-button" onClick={handleClose}>X</button>
 
-                <div className="employee-details">
+                <div className="view-employee-details">
                     <h2>Employee Details</h2>
                     <p><strong>Name:</strong> {employee.name}</p>
                     <p><strong>Surname:</strong> {employee.surname}</p>
@@ -87,9 +87,9 @@ const ViewEmployee = ({ employeeNumber, open, handleClose, onEmployeeListUpdate 
                 </div>
 
                 {/* Buttons at the bottom-right */}
-                <div className="modal-buttons">
-                <button className="edit-button" onClick={handleEditClick}>Edit</button>
-                    <button className="delete-button" onClick={handleDeleteClick}>Delete</button>
+                <div className="view-modal-buttons">
+                    <button className="view-delete-button" onClick={handleDeleteClick}>Delete</button>
+                    <button className="view-edit-button" onClick={handleEditClick}>Edit</button>
                 </div>
             </div>
 

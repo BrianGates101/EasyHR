@@ -151,7 +151,7 @@ const EmployeeGraph = () => {
     };
 
     if (loading) {
-        return <div className="loading-text">Loading...</div>;
+        return <div className="graph-loading-text">Loading...</div>;
     }
 
     return (

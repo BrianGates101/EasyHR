@@ -4,135 +4,6 @@ import SaveConfirmation from './SaveConfirmation'; // Import the SaveConfirmatio
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// const EditEmployee = ({ employeeNumber, onSave, onCancel }) => {
-    // const [employeeData, setEmployeeData] = useState({
-    //     name: '',
-    //     surname: '',
-    //     birthdate: '',
-    //     salary: '',
-    //     position: '',
-    //     managerId: '',
-    // });
-
-//     useEffect(() => {
-//         const fetchEmployeeDetails = async () => {
-//             try {
-//                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/employees/${employeeNumber}`);
-//                 setEmployee(response.data);
-//             } catch (error) {
-//                 console.error("Error fetching employee details for edit:", error);
-//             }
-//         };
-
-//         fetchEmployeeDetails();
-//     }, [employeeNumber]);
-
-//     const handleChange = (e) => {
-//         setEmployee({
-//             ...employee,
-//             [e.target.name]: e.target.value
-//         });
-//     };
-
-//     const handleSave = async () => {
-//         try {
-//             await axios.put(`${process.env.REACT_APP_API_URL}/employees/${employeeNumber}`, employee);
-//             onSave(); // Notify parent to update the employee list
-//         } catch (error) {
-//             console.error("Error updating employee:", error);
-//         }
-//     };
-
-//     if (!employee) return null; // If employee data is still loading, return null.
-
-//     return (
-//         <div className="edit-employee-modal">
-//             <div className="modal-content">
-//                 {/* Close Button (Top-right "X") */}
-//                 <button className="close-button" onClick={onCancel}>X</button>
-
-//                 <h2>Edit Employee</h2>
-//                 <form>
-//                     <div className="form-group">
-//                         <label htmlFor="name">Name</label>
-//                         <input
-//                             type="text"
-//                             id="name"
-//                             name="name"
-//                             value={employee.name}
-//                             onChange={handleChange}
-//                         />
-//                     </div>
-
-//                     <div className="form-group">
-//                         <label htmlFor="surname">Surname</label>
-//                         <input
-//                             type="text"
-//                             id="surname"
-//                             name="surname"
-//                             value={employee.surname}
-//                             onChange={handleChange}
-//                         />
-//                     </div>
-
-//                     <div className="form-group">
-//                         <label htmlFor="birthdate">Birthdate</label>
-//                         <input
-//                             type="date"
-//                             id="birthdate"
-//                             name="birthdate"
-//                             value={employee.birthdate.slice(0, 10)} // Formatting date to yyyy-mm-dd
-//                             onChange={handleChange}
-//                         />
-//                     </div>
-
-//                     <div className="form-group">
-//                         <label htmlFor="salary">Salary</label>
-//                         <input
-//                             type="number"
-//                             id="salary"
-//                             name="salary"
-//                             value={employee.salary}
-//                             onChange={handleChange}
-//                         />
-//                     </div>
-
-//                     <div className="form-group">
-//                         <label htmlFor="position">Position</label>
-//                         <input
-//                             type="text"
-//                             id="position"
-//                             name="position"
-//                             value={employee.position}
-//                             onChange={handleChange}
-//                         />
-//                     </div>
-
-//                     <div className="form-group">
-//                         <label htmlFor="managerId">Manager ID</label>
-//                         <input
-//                             type="text"
-//                             id="managerId"
-//                             name="managerId"
-//                             value={employee.managerId || ''}
-//                             onChange={handleChange}
-//                         />
-//                     </div>
-
-//                     <div className="modal-buttons">
-//                         <button type="button" className="cancel-button" onClick={onCancel}>Cancel</button>
-//                         <button type="button" className="save-button" onClick={handleSave}>Save</button>
-//                     </div>
-//                 </form>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default EditEmployee;
-
-
-
 const EditEmployee = ({ employeeNumber, onSave, onCancel }) => {
     const [employee, setEmployee] = useState({
         name: '',
@@ -182,13 +53,13 @@ const EditEmployee = ({ employeeNumber, onSave, onCancel }) => {
 
     return (
         <div className="edit-employee-modal">
-            <div className="modal-content">
+            <div className="edit-modal-content">
                 {/* Close Button (Top-right "X") */}
-                <button className="close-button" onClick={onCancel}>X</button>
+                <button className="edit-close-button" onClick={onCancel}>X</button>
 
                 <h2>Edit Employee</h2>
                 <form>
-                    <div className="form-group">
+                    <div className="edit-form-group">
                         <label htmlFor="name">Name</label>
                         <input
                             type="text"
@@ -199,7 +70,7 @@ const EditEmployee = ({ employeeNumber, onSave, onCancel }) => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="edit-form-group">
                         <label htmlFor="surname">Surname</label>
                         <input
                             type="text"
@@ -210,7 +81,7 @@ const EditEmployee = ({ employeeNumber, onSave, onCancel }) => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="edit-form-group">
                         <label htmlFor="birthdate">Birthdate</label>
                         <input
                             type="date"
@@ -221,7 +92,7 @@ const EditEmployee = ({ employeeNumber, onSave, onCancel }) => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="edit-form-group">
                         <label htmlFor="salary">Salary</label>
                         <input
                             type="number"
@@ -232,7 +103,7 @@ const EditEmployee = ({ employeeNumber, onSave, onCancel }) => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="edit-form-group">
                         <label htmlFor="position">Position</label>
                         <input
                             type="text"
@@ -243,7 +114,7 @@ const EditEmployee = ({ employeeNumber, onSave, onCancel }) => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="edit-form-group">
                         <label htmlFor="managerId">Manager ID</label>
                         <input
                             type="text"
@@ -255,9 +126,9 @@ const EditEmployee = ({ employeeNumber, onSave, onCancel }) => {
                     </div>
                 </form>
 
-                <div className="modal-buttons">
-                    <button onClick={onCancel}>Cancel</button>
-                    <button onClick={handleSaveClick}>Save</button>
+                <div className="edit-modal-buttons">
+                    <button className="edit-cancel-button" onClick={onCancel}>Cancel</button>
+                    <button className="edit-save-button" onClick={handleSaveClick}>Save</button>
                 </div>
             </div>
 
@@ -269,72 +140,6 @@ const EditEmployee = ({ employeeNumber, onSave, onCancel }) => {
                 />
             )}
         </div>
-        // <div className="edit-employee-modal">
-        //     <div className="modal-content">
-        //         <h2>Edit Employee</h2>
-
-        //         <label>Name</label>
-        //         <input
-        //             type="text"
-        //             name="name"
-        //             value={employeeData.name}
-        //             onChange={handleInputChange}
-        //         />
-
-        //         <label>Surname</label>
-        //         <input
-        //             type="text"
-        //             name="surname"
-        //             value={employeeData.surname}
-        //             onChange={handleInputChange}
-        //         />
-
-        //         <label>Birthdate</label>
-        //         <input
-        //             type="date"
-        //             name="birthdate"
-        //             value={employeeData.birthdate}
-        //             onChange={handleInputChange}
-        //         />
-
-        //         <label>Salary</label>
-        //         <input
-        //             type="number"
-        //             name="salary"
-        //             value={employeeData.salary}
-        //             onChange={handleInputChange}
-        //         />
-
-        //         <label>Position</label>
-        //         <input
-        //             type="text"
-        //             name="position"
-        //             value={employeeData.position}
-        //             onChange={handleInputChange}
-        //         />
-
-        //         <label>Manager ID</label>
-        //         <input
-        //             type="text"
-        //             name="managerId"
-        //             value={employeeData.managerId || ''}
-        //             onChange={handleInputChange}
-        //         />
-
-        //         <div className="modal-buttons">
-        //             <button onClick={onCancel}>Cancel</button>
-        //             <button onClick={handleSaveClick}>Save</button>
-        //         </div>
-        //     </div>
-
-        //     {/* Save Confirmation Modal */}
-        //     {showSaveConfirmation && (
-        //         <SaveConfirmation
-        //             onConfirm={handleSaveConfirm}
-        //             onCancel={handleSaveCancel}
-        //         />
-        //     )}
-        // </div>
     );
 };
 
