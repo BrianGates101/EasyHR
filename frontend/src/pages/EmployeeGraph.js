@@ -7,6 +7,7 @@ import axios from 'axios';
 
 const EmployeeGraph = () => {
     const [employees, setEmployees] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [selectedEmployeeNumber, setSelectedEmployeeNumber] = useState(null);
     const [openViewModal, setOpenViewModal] = useState(false);
     const svgRef = useRef();
@@ -19,6 +20,7 @@ const EmployeeGraph = () => {
             } catch (error) {
                 console.error('Error fetching employees:', error);
             }
+            setLoading(false);
         };
         fetchEmployees();
     }, []);
@@ -64,7 +66,6 @@ const EmployeeGraph = () => {
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
-            .style('background', '#f9f9f9');
 
         // Use D3 stratify to create hierarchy
         const root = d3.stratify()
@@ -87,9 +88,7 @@ const EmployeeGraph = () => {
             .attr('x1', d => d.source.x)
             .attr('y1', d => d.source.y)
             .attr('x2', d => d.target.x)
-            .attr('y2', d => d.target.y)
-            .style('stroke', '#ccc')
-            .style('stroke-width', 2);
+            .attr('y2', d => d.target.y);
 
         // console.log(treeData.descendants());
         const nodes = g.selectAll('.node')
@@ -133,19 +132,11 @@ const EmployeeGraph = () => {
 
         nodes.append('circle')
             .attr('r', 20)
-            .style('fill', '#4CAF50')
-            .style('stroke', '#333')
-            .style('stroke-width', 2);
 
         nodes.append('text')
             .attr('dx', 0) // Center the text horizontally
             .attr('dy', 3) // Position the text below the node
             .text(d => `${d.data.name} ${d.data.surname} (${d.data.employeeNumber})`)
-            .style('text-anchor', 'middle') // Align text to the center of the node
-            .style('font-size', '14px')
-            .style('font-weight', 'bold')
-            .style('font-family', 'Arial, sans-serif')
-            .style('fill', '#333')
             .call(wrapText, 200); // Optional: Call a function to wrap long text within 100px
     };
 
@@ -158,6 +149,10 @@ const EmployeeGraph = () => {
         setOpenViewModal(false);
         setSelectedEmployeeNumber(null);
     };
+
+    if (loading) {
+        return <div className="loading-text">Loading...</div>;
+    }
 
     return (
         <div className="employee-graph-container">

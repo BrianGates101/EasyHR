@@ -121,12 +121,12 @@ const EmployeeList = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className="loading-text">Loading...</div>;
     }
 
     return (
         <div className="employee-list-container">
-            <div className="filter-panel">
+            <div className="filters-panel">
                 <h2>Filters</h2>
                 <div className="filter-group">
                     <label>Position:</label>

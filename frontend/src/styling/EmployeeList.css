@@ -1,65 +1,174 @@
+/* Loading Text */
+.loading-text{
+    color: #FFF;
+    font-size: 50px;
+    font-weight: bold;
+    text-shadow: 0px 5px 7px rgba(255, 255, 255, 0.3);
+    margin-top: 200px;
+}
+
+/* Container Styling */
 .employee-list-container {
     display: flex;
     flex-direction: row;
-    gap: 30px; /* Increased gap for better separation */
-    padding: 20px; /* Added padding to the container for more space */
+    gap: 30px;
+    padding: 20px;
+    padding-top: 50px;
+    background-color: #1a1a1a;
+    color: #e0e0e0;;
+    min-height: 100vh;
 }
 
+/* Filters Panel */
 .filters-panel {
     width: 25%;
-    background-color: #f9f9f9;
+    background-color: #2e2e3e;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    height: 370px;
 }
 
 .filters-panel h2 {
     margin-bottom: 10px;
+    color: #7b1fa2;
 }
 
-.filters-panel .filter-group {
-    margin-bottom: 20px;
-}
-
-.filters-panel label {
-    display: block;
+.filters-panel .filter-group label {
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-.filters-panel input,
-.filters-panel select {
+.filters-panel input {
     width: 100%;
     padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #3c3c4c;
     border-radius: 4px;
+    background-color: #1e1e2f;
+    color: #e0e0e0;
 }
 
-.filters-panel input:focus,
-.filters-panel select:focus {
-    border-color: #4CAF50; /* Highlight active filter inputs with a green border */
-    outline: none;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+.filters-panel input:focus {
+    border-color: #8b78e6;
+    box-shadow: 0 0 5px rgba(139, 120, 230, 0.5);
 }
 
+/* Reset Filters Button */
+.filters-panel button {
+    background-color: #6c5ce7;
+    color: #FFF;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.filters-panel button:hover {
+    background-color: #5a4bc8; /* Darker purple on hover */
+}
+
+/* Employee List */
 .employee-list {
     flex-grow: 1;
-    /* position: relative; */
 }
 
-/* EmployeeList.css */
-table tr {
-    cursor: pointer; /* Indicates the rows are clickable */
+.employee-list h1 {
+    color: #7b1fa2;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2em;
 }
 
-table tr:hover {
-    background-color: #e6f7ff; /* Lighter hover effect */
-    transition: background-color 0.3s ease-in-out; /* Smooth transition for hover */
+/* Reset Filters Button */
+.employee-list button {
+    background-color: #6c5ce7;
+    color: #FFF;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 }
 
+.employee-list button:hover {
+    background-color: #5a4bc8; /* Darker purple on hover */
+}
+
+/* Search Container */
+.search-container input {
+    width: 70%;
+    padding: 8px;
+    border: 1px solid #3c3c4c;
+    border-radius: 4px;
+    background-color: #1e1e2f;
+    color: #e0e0e0;
+}
+
+.search-container button {
+    background-color: #6c5ce7;
+    color: #FFF;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.search-container button:hover {
+    background-color: #5a4bc8;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #2e2e3e;
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+th, td {
+    padding: 10px 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #6c5ce7;
+    color: #FFF;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+th:hover {
+    background-color: #5a4bc8;
+}
+
+tr:nth-child(even) {
+    background-color: #242434; /* Alternating row background */
+}
+
+tr:hover {
+    background-color: #3c3c4c; /* Darker hover effect */
+    transition: background-color 0.3s ease-in-out;
+}
+
+td {
+    color: #e0e0e0;
+}
+
+/* Empty State Row */
+table tbody tr td[colspan="7"] {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    background-color: #1e1e2f;
+}
+
+/* Buttons */
 button {
-    background-color: #4CAF50;
+    background-color: #6c5ce7;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -69,24 +178,17 @@ button {
 }
 
 button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #5a4bc8;
 }
 
 button:disabled {
-    background-color: #ccc;
+    background-color: #3c3c4c;
     cursor: not-allowed;
 }
 
+/* Active Sorting */
 th.active {
-    background-color: #e6f7ff; /* Lighter blue for active column */
+    background-color: #5a4bc8;
     font-weight: bold;
-    border-bottom: 2px solid #4CAF50; /* Green underline for active sorting */
-}
-
-table tbody tr td[colspan="7"] {
-    text-align: center;
-    color: #888;
-    font-style: italic;
-    padding: 20px;
-    background-color: #f9f9f9;
+    border-bottom: 2px solid #e0e0e0;
 }
