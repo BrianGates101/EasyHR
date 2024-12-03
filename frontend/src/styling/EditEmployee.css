@@ -1,68 +1,136 @@
+/* Fullscreen Overlay */
 .edit-employee-modal {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    background: rgba(30, 30, 47, 0.8); /* Dark semi-transparent background */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1010; /* Ensure it appears on top of other modals */
+    z-index: 1010; /* High z-index to layer properly */
 }
 
-.modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
+/* Modal Box */
+.edit-modal-content {
+    background: #1e1e2f; /* Main dark theme background */
+    padding: 30px;
+    border-radius: 12px;
     width: 400px;
     text-align: left;
     position: relative;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* Subtle shadow for depth */
+    color: #e0e0e0; /* Light gray text */
 }
 
-h2 {
+/* Modal Title */
+.edit-modal-content h2 {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 1.8em;
+    color: #7b1fa2; /* Purple heading */
 }
 
-.form-group {
+/* Form Group */
+.edit-form-group {
     margin-bottom: 15px;
 }
 
-.form-group label {
-    font-size: 14px;
+.edit-form-group label {
+    font-size: 16px;
+    font-weight: bold;
     display: block;
     margin-bottom: 5px;
+    color: #7b1fa2; /* Subtle purple for labels */
 }
 
-.form-group input {
+.edit-form-group input {
     width: 100%;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #4a148c; /* Purple border */
+    border-radius: 8px;
+    background: #282838; /* Darker input background */
+    color: #e0e0e0;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.modal-buttons {
+.edit-form-group input:focus {
+    outline: none;
+    border-color: #7b1fa2; /* Brighter purple on focus */
+    box-shadow: 0 0 5px #7b1fa2; /* Purple glow */
+}
+
+/* Close Button */
+.edit-close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #7b1fa2; /* Purple accent */
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.edit-close-button:hover {
+    transform: scale(1.1);
+    color: #c01818; /* Red highlight on hover */
+}
+
+/* Buttons Section */
+.edit-modal-buttons {
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
+    gap: 15px;
+    margin-top: 20px;
 }
 
-.modal-buttons button {
-    padding: 10px 15px;
-    font-size: 14px;
+.edit-modal-buttons button {
+    padding: 12px 20px;
+    font-size: 1em;
     border: none;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.save-button {
-    background-color: #4CAF50; /* Green color for Save */
-    color: white;
+/* Save Button */
+.edit-modal-buttons .edit-save-button {
+    background-color: #5a4bc8; /* Purple for save */
+    color: #fff;
 }
 
-.cancel-button {
-    background-color: #f44336; /* Red color for Cancel */
-    color: white;
+.edit-modal-buttons .edit-save-button:hover {
+    transform: scale(1.05);
+}
+
+/* Cancel Button */
+.edit-modal-buttons .edit-cancel-button {
+    background-color: #c01818; /* Bright red for cancel */
+    color: #fff;
+}
+
+.edit-modal-buttons .edit-cancel-button:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .edit-modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .edit-form-group input {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    .edit-modal-buttons button {
+        font-size: 0.9em;
+        padding: 10px 15px;
+    }
 }

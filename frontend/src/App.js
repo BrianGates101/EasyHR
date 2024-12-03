@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Navbar from './pages/Navbar';
+import Navbar from './components/Navbar';
 import EmployeeList from './pages/EmployeeList';
 import EmployeeGraph from './pages/EmployeeGraph';
 import NotFound from './pages/NotFound';

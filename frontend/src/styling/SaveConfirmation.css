@@ -1,17 +1,17 @@
-.save-confirmation-modal {
+/* .save-confirmation-modal {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
 }
 
-.save-confirmation-modal .modal-content {
+.save-confirmation-modal .save-modal-content {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
@@ -26,12 +26,12 @@
     color: #333;
 }
 
-.save-confirmation-modal .modal-buttons {
+.save-confirmation-modal .save-modal-buttons {
     display: flex;
     justify-content: space-between;
 }
 
-.save-confirmation-modal .modal-buttons button {
+.save-confirmation-modal .save-modal-buttons button {
     padding: 10px 20px;
     font-size: 16px;
     border: none;
@@ -40,20 +40,105 @@
     transition: background-color 0.3s ease;
 }
 
-.save-confirmation-modal .confirm-button {
+.save-confirmation-modal .save-confirm-button {
     background-color: #28a745;
     color: white;
 }
 
-.save-confirmation-modal .confirm-button:hover {
+.save-confirmation-modal .save-confirm-button:hover {
     background-color: #218838;
 }
 
-.save-confirmation-modal .cancel-button {
+.save-confirmation-modal .save-cancel-button {
     background-color: #dc3545;
     color: white;
 }
 
-.save-confirmation-modal .cancel-button:hover {
+.save-confirmation-modal .save-cancel-button:hover {
     background-color: #c82333;
+} */
+
+
+
+/* Fullscreen Overlay */
+.save-confirmation-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(30, 30, 47, 0.8); /* Dark semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it appears above other elements */
+}
+
+/* Modal Box */
+.save-modal-content {
+    background-color: #1e1e2f; /* Main dark background */
+    padding: 25px;
+    border-radius: 12px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* Subtle shadow for depth */
+    color: #e0e0e0; /* Light gray text */
+}
+
+/* Modal Title */
+.save-modal-content h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #7b1fa2; /* Highlighted purple for emphasis */
+}
+
+/* Buttons Section */
+.save-modal-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.save-modal-buttons button {
+    padding: 12px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Confirm Button */
+.save-modal-buttons .save-confirm-button {
+    background-color: #5a4bc8; /* Purple for confirm */
+}
+
+.save-modal-buttons .save-confirm-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #5a4bc8; /* Purple glow */
+}
+
+/* Cancel Button */
+.save-modal-buttons .save-cancel-button {
+    background-color: #c01818; /* Bright red for cancel */
+}
+
+.save-modal-buttons .save-cancel-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #c01818; /* Red glow */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .save-modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .save-modal-buttons button {
+        font-size: 0.9em;
+        padding: 10px 15px;
+    }
 }
