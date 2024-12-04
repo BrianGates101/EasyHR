@@ -168,29 +168,17 @@ table tbody tr td[colspan="7"] {
     background-color: #1e1e2f;
 }
 
-/* Buttons */
-/* .employee-list-container > button {
-    background-color: #6c5ce7;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.employee-list-container > button:hover {
-    background-color: #5a4bc8;
-}
-
-.employee-list-container > button:disabled {
-    background-color: #3c3c4c;
-    cursor: not-allowed;
-} */
-
 /* Active Sorting */
 th.active {
     background-color: #5a4bc8;
     font-weight: bold;
     border-bottom: 2px solid #e0e0e0;
+}
+
+.avatar {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    vertical-align: middle;
 }
