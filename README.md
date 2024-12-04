@@ -21,3 +21,5 @@ Easy HR: the easiest solution to your basic HR needs. Add, Delete and Customize 
 
 - Web App : <a href='https://easy-hr-zeta.vercel.app'>https://easy-hr-zeta.vercel.app</a>
 - Backend API : <a href='https://easyhr-47kv.onrender.com'>https://easyhr-47kv.onrender.com</a>
+- Technical Specification : <a href='/Documentation/Technical Specifications.pdf'>Technical Specification.pdf</a>
+- User Guide : <a href='/Documentation/User Guide.pdf'>User Guide.pdf</a>
