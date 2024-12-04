@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import md5 from 'md5';
 
 import  '../styling/EmployeeList.css';
 import AddEmployee from '../components/AddEmployee';
@@ -44,9 +45,15 @@ const EmployeeList = () => {
             setLoading(false);
         } catch (error) {
             console.error("Error fetching employees:", error);
-            alert("Failed to fetch employees. Please try again.");
+            alert("Failed to fetch employees. Or no employees found.");
             setLoading(false);
         }
+    };
+
+    const getGravatarUrl = (email, size = 256) => {
+        const trimmedEmail = email.trim().toLowerCase() + "@gmail.com";
+        const hash = md5(trimmedEmail);
+        return `https://www.gravatar.com/avatar/${hash}?s=${size}&d=identicon`;
     };
 
     const handleAddEmployee = () => setShowPopup(true);
@@ -188,6 +195,7 @@ const EmployeeList = () => {
                 <table>
                     <thead>
                         <tr>
+                            <th className='name' > Avatar </th>
                             <th
                                 onClick={() => handleSort('name')}
                                 className={sortField === 'name' ? 'active' : ''}
@@ -236,6 +244,13 @@ const EmployeeList = () => {
                         {Array.isArray(getSortedEmployees()) ? (
                             getSortedEmployees().map((employee) => (
                                 <tr key={employee.employeeNumber} onClick={() => handleViewEmployee(employee.employeeNumber)}>
+                                    <td>
+                                        <img 
+                                            src={getGravatarUrl(employee.name + employee.surname)} 
+                                            alt={`${employee.name}'s avatar`} 
+                                            className="avatar" 
+                                        />
+                                    </td>
                                     <td>{employee.name}</td>
                                     <td>{employee.surname}</td>
                                     <td>{new Date(employee.birthdate).toLocaleDateString()}</td>
