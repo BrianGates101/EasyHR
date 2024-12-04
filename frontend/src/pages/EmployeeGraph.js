@@ -4,6 +4,7 @@ import ViewEmployee from '../components/ViewEmployee';
 import React, { useEffect, useState, useRef } from 'react';
 import * as d3 from 'd3';
 import axios from 'axios';
+import md5 from 'md5';
 
 const EmployeeGraph = () => {
     const [employees, setEmployees] = useState([]);
@@ -59,9 +60,15 @@ const EmployeeGraph = () => {
         });
     };
 
+    const getGravatarUrl = (email, size = 256) => {
+        const trimmedEmail = email.trim().toLowerCase() + "@gmail.com";
+        const hash = md5(trimmedEmail);
+        return `https://www.gravatar.com/avatar/${hash}?s=${size}&d=identicon`;
+    };
+
     const drawGraph = () => {
-        const width = 800;
-        const height = 600;
+        const width = 1500;
+        const height = 1000;
 
         const svg = d3.select(svgRef.current)
             .attr('width', width)
@@ -132,6 +139,14 @@ const EmployeeGraph = () => {
 
         nodes.append('circle')
             .attr('r', 20)
+
+        nodes.append('image')
+            .attr('xlink:href', d => getGravatarUrl(d.data.name + d.data.surname))
+            .attr('x', -25) // Center the image
+            .attr('y', -25) // Center the image
+            .attr('width', 50)
+            .attr('height', 50)
+            .attr('clip-path', 'circle(25px at 25px 25px)'); // Make it circular
 
         nodes.append('text')
             .attr('dx', 0) // Center the text horizontally
